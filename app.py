@@ -33,6 +33,8 @@ def registers():
         in_mail = request.form['email']
         if [in_user, in_pass] not in users_list:
             curr.execute("INSERT INTO users (name, username, password, email) VALUES (%s, %s, %s, %s)", [in_name, in_user, in_pass, in_mail])
+            conn.commit()
+            
             curr.close()
             conn.close()
             return redirect(url_for('login'))
@@ -57,7 +59,12 @@ def logins():
     if request.method == 'POST':
         in_user = request.form['username']
         in_pass = request.form['password']
-        if [in_user, in_pass] in users_list:
+
+        print(users_list)
+        print(in_user)
+        print(in_pass)
+        print((in_user, in_pass))
+        if (in_user, in_pass) in users_list:
             curr.execute("SELECT name FROM users WHERE username = %s AND password = %s", [in_user, in_pass])
             name = curr.fetchone()
             curr.close()

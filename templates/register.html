@@ -4,16 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/style.css') }}">
     <title>Sign Up</title>
 </head>
 <body>
     <center>
     <div class = "header">
-        <img src="../images/logo.png" id="logo">
+        <img src="{{url_for('static', filename='images/logo.png')}}" id="logo">
         <h1>Bike Shop</h1>
     </div>
     <center>
+
+    {% if error == "existingaccount" %}
+
+        <li>Incorrect username or password</li>
+    {% endif %}
     
     <div class="back">
         <h1>Welcome</h1>
@@ -31,7 +36,7 @@
             </div>
             <br/>
             <p>Already have an account?</p>
-            <a href="login.html">Login Here</a>
+            <a href="/">Login Here</a>
         </form>
         <br /><br />
         <p style="font-weight: lighter; font-style: italic">

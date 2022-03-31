@@ -124,3 +124,8 @@ form {
 	height:80%;
 	width:95%;
 }
+
+#copyright{
+	font-weight: lighter; 
+	font-style: italic
+}

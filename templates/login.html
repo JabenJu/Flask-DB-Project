@@ -4,21 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/style.css') }}">
     <title>Log In</title>
 </head>
 <body>
     <center>
     <div class = "header">
-            <img src="../images/logo.png" id="logo">
+            <img src="{{url_for('static', filename='images/logo.png')}}" id="logo">
             <h1>Bike Shop</h1>
     </div>
     <center>
 
-<!-- {% if error == "faillogin" %}
+{% if error == "faillogin" %}
 
     <li>Incorrect username or password</li>
-{% endif %} -->
+{% endif %}
 
     <div class="back">
         <h1>Welcome</h1>
@@ -32,7 +32,7 @@
             </div>
             <br/>
             <p>Don't have an account?</p>
-            <a href="./sign_up.html">Sign Up Here</a>
+            <a href="register">Sign Up Here</a>
         </form>
         <br /><br />
         <p id="copyright">

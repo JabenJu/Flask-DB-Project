@@ -6,9 +6,9 @@ app = Flask(__name__)
 def get_db_connection():
    conn = psycopg2.connect(
    host = 'localhost',
-   database = 'X',
+   database = 'users',
    user = 'postgres',
-   password = 'X'
+   password = 'jaben1215'
    )
 
    return conn
@@ -31,14 +31,14 @@ def registers():
         in_pass = request.form['password']
         in_mail = request.form['email']
         if [in_user,in_pass] not in users_list:
-            curr.execute("INSERT INTO users (name, username, password, email) VALUES (%s, %s, %s, %s)" [in_name, in_user, in_pass, in_mail])
+            curr.execute("INSERT INTO users (name, username, password, email) VALUES (%s, %s, %s, %s)", [in_name, in_user, in_pass, in_mail])
             curr.close()
             conn.close()
             return redirect(url_for('/'))
         else:
             curr.close()
             conn.close()
-            return redirect(url_for('register',errType='existingaccount'))
+            return redirect(url_for('register',error='existingaccount'))
 
 @app.route("/")
 def login():
@@ -56,12 +56,12 @@ def logins():
         in_user = request.form['username']
         in_pass = request.form['password']
         if [in_user, in_pass] in users_list:
-            name = curr.execute("SELECT name FROM users WHERE username = %s AND password = %s" [in_user, in_pass])
+            name = curr.execute("SELECT name FROM users WHERE username = %s AND password = %s", [in_user, in_pass])
             curr.close()
             conn.close()
             return redirect(url_for('shop',name=name,username=in_user,password=in_pass))
         else:
-            return redirect(url_for('login',errType='faillogin'))
+            return redirect(url_for('login',error='faillogin'))
 
 @app.route("/shop/<name>")
 def shop(name):

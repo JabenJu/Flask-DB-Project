@@ -22,7 +22,7 @@
     
     <div class="back">
         <h1>Welcome</h1>
-        <form action="localhost:5000" method="post" name="signupForm">
+        <form action="{{ url_for('register')}}" method="post" name="signupForm">
             <p class="inputLabel">Enter Name:</p>
             <input name="name" type="text" placeholder="John Dough" required/>
             <p class="inputLabel">Enter Email:</p>

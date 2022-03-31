@@ -6,7 +6,7 @@ app = Flask(__name__)
 def get_db_connection():
    conn = psycopg2.connect(
    host = 'localhost',
-   database = 'users',
+   database = 'flask_db',
    user = 'postgres',
    password = 'jaben1215'
    )
@@ -23,18 +23,19 @@ def registers():
     conn = get_db_connection()
     curr = conn.cursor()
 
-    users_list = curr.execute("SELECT username, password FROM users")
+    curr.execute("SELECT username, password FROM users")
+    users_list = curr.fetchall()
 
     if request.method == 'POST':
         in_name = request.form['name']
         in_user = request.form['username']
         in_pass = request.form['password']
         in_mail = request.form['email']
-        if [in_user,in_pass] not in users_list:
+        if [in_user, in_pass] not in users_list:
             curr.execute("INSERT INTO users (name, username, password, email) VALUES (%s, %s, %s, %s)", [in_name, in_user, in_pass, in_mail])
             curr.close()
             conn.close()
-            return redirect(url_for('/'))
+            return redirect(url_for('login'))
         else:
             curr.close()
             conn.close()
@@ -50,13 +51,15 @@ def logins():
     conn = get_db_connection()
     curr = conn.cursor()
 
-    users_list = curr.execute("SELECT username, password FROM users")
+    curr.execute("SELECT username, password FROM users")
+    users_list = curr.fetchall()
 
     if request.method == 'POST':
         in_user = request.form['username']
         in_pass = request.form['password']
         if [in_user, in_pass] in users_list:
-            name = curr.execute("SELECT name FROM users WHERE username = %s AND password = %s", [in_user, in_pass])
+            curr.execute("SELECT name FROM users WHERE username = %s AND password = %s", [in_user, in_pass])
+            name = curr.fetchone()
             curr.close()
             conn.close()
             return redirect(url_for('shop',name=name,username=in_user,password=in_pass))

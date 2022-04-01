@@ -17,11 +17,13 @@
 
     {% if error == "existingaccount" %}
 
-        <li>Incorrect username or password</li>
+    <div class="errormessage">
+        Existing user, please use a username and password that does not exist, or login.
+    </div>
     {% endif %}
     
     <div class="back">
-        <h1>Welcome</h1>
+        <h1>Register</h1>
         <form action="{{ url_for('register')}}" method="post" name="signupForm">
             <p class="inputLabel">Enter Name:</p>
             <input name="name" type="text" placeholder="John Dough" required/>

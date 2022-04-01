@@ -17,11 +17,13 @@
 
 {% if error == "faillogin" %}
 
-    <li>Incorrect username or password</li>
+    <div class="errormessage">
+        Incorrect username or password
+    </div>
 {% endif %}
 
     <div class="back">
-        <h1>Welcome</h1>
+        <h1>Log-In</h1>
         <form action="/" method="post" name="signupForm">
             <p class="inputLabel">Enter Username:</p>
             <input name="username" type="text" placeholder="Username_1" required/>
